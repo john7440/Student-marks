@@ -2,7 +2,8 @@
 public class Notes {
 
 	public static void main(String[] args) {
-
+		
+		// Our data
 		int[] StudentMark = {10, 12, 15, 20};
 
 		int min = getMinValue(StudentMark);
@@ -14,7 +15,7 @@ public class Notes {
 		
 ;
 	}
-	
+	// A method to find the minimum value in an array
 	public static int getMinValue(int[] numbers) {
 		int minValue = numbers[0];
 		for (int i = 1; i < numbers.length; i++) {
@@ -25,6 +26,7 @@ public class Notes {
 		return minValue;
 	}
 	
+	// A method to find the maximum value in an array
 	public static int getMaxValue(int[] numbers) {
 		int maxValue = numbers[0];
 		for (int i = 1; i < numbers.length; i++) {
@@ -35,6 +37,7 @@ public class Notes {
 		return maxValue;
 	}
 	
+	// A method to find the average value in an array
 	public static double getAverage(int[] numbers) {
 		int TotalSum = 0;
 		int lenArray = numbers.length;
