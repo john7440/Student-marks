@@ -1,3 +1,4 @@
+package fr.ex.array;
 
 public class Notes {
 

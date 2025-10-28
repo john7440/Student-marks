@@ -1,3 +1,6 @@
+package fr.ex.array;
+
+
 import java.util.*;
 
 public class Students {
