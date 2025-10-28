@@ -20,24 +20,34 @@ public class Students {
 			scan.nextLine();
 	
 			String fullName = firstName + " " + lastName;
-		
-			System.out.println("Enter the marks (space separated) for " + fullName);
-			String marks = scan.nextLine();
-			String[] marksArray = marks.split(" ");
 			
-			List<Integer> marksList = new ArrayList<>();
-			for (String mark: marksArray) {
-				try {
-					int value = Integer.parseInt(mark);
-					marksList.add(value);
-					
-				} catch (NumberFormatException err){
-					System.out.println("Invalid Input.");
-				}
+			if (studentMarks.containsKey(fullName)) {
+				System.out.println("\nStudent \"" + fullName + "\" already exists.");
+                List<Integer> existingMarks = studentMarks.get(fullName);
+                System.out.println("Marks: " + existingMarks);
+                System.out.println("Mean: " + Notes.getAverage(existingMarks));
+			}
+			
+			else {
+				System.out.println("Enter the marks (space separated) for " + fullName);
+				String marks = scan.nextLine();
+				String[] marksArray = marks.split(" ");
+				
+				List<Integer> marksList = new ArrayList<>();
+				for (String mark: marksArray) {
+					try {
+						int value = Integer.parseInt(mark);
+						marksList.add(value);
+						
+					} catch (NumberFormatException err){
+						System.out.println("Invalid Input.");
+					}
 			
 			}
 				
-			studentMarks.put(fullName, marksList);
+				studentMarks.put(fullName, marksList);
+				System.out.println("Student \"" + fullName + "\" added successfully.");
+			}
 			
 			System.out.println("Do you want to add another studen? (y or n ) ? ");
 			String choice = scan.nextLine().trim().toLowerCase();
