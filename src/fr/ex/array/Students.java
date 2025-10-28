@@ -1,6 +1,5 @@
 package fr.ex.array;
 
-
 import java.util.*;
 
 public class Students {
@@ -35,10 +34,13 @@ public class Students {
 		
 		studentMarks.put(fullName, marksList);
 		
+		
+		// Display 
 		System.out.println("\nStudent records:");
         for (Map.Entry<String, List<Integer>> entry : studentMarks.entrySet()) {
             System.out.println("Student: " + entry.getKey());
             System.out.println("Marks: " + entry.getValue());
+            System.out.println("Mean: " + Notes.getAverage(marksList));
         }
         
         scan.close();
