@@ -67,7 +67,11 @@ public class Students {
 				for (String mark: marksArray) {
 					try {
 						int value = Integer.parseInt(mark);
-						marksList.add(value);
+						if (value >= 0 && value <= 20) {
+							marksList.add(value);
+						} else {
+							System.out.println("Invalid mark (must be between 0 and 20): " + value);
+						}
 						
 					} catch (NumberFormatException err){
 						System.out.println("Invalid Input: " + mark);
