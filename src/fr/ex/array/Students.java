@@ -4,21 +4,27 @@ import java.util.*;
 
 public class Students {
 	
+	public static void displayStudentInfo(String name, List<Integer> notes) {
+		System.out.println("Student: " + name);
+	    System.out.println("Marks: " + notes);
+	    System.out.println("Mean: " + Notes.getAverage(notes)+ "\n");
+	}
+	
+	
 	public static void displaySortedAscending(Map<String, List<Integer>> studentMarks) {
 		System.out.println("\nStudents sorted by first name (ascending): ");
 		studentMarks.entrySet().stream()
 			.sorted(Comparator.comparing(entry -> entry.getKey().split(" ")[0]))
-			.forEach(entry -> {
-	            String name = entry.getKey();
-	            List<Integer> notes = entry.getValue();
-	            System.out.println("Student: " + name);
-	            System.out.println("Marks: " + notes);
-	            System.out.println("Mean: " + Notes.getAverage(notes));
-	            System.out.println("Min: " + Notes.getMinValue(notes));
-	            System.out.println("Max: " + Notes.getMaxValue(notes));
-	            System.out.println();
-	        });
+			.forEach(entry -> displayStudentInfo(entry.getKey(), entry.getValue()));
 	}
+	
+	public static void displaySortedDescending(Map<String, List<Integer>> studentMarks) {
+	    System.out.println("\nStudents sorted by first name (descending):");
+	    studentMarks.entrySet().stream()
+	        .sorted(Comparator.comparing((Map.Entry<String, List<Integer>> entry) -> entry.getKey().split(" ")[0]).reversed())
+	        .forEach(entry -> displayStudentInfo(entry.getKey(), entry.getValue()));
+	}
+
 	
 	public static void main(String[] args) {
 		
@@ -40,9 +46,7 @@ public class Students {
 			// If the student is already registered
 			if (studentMarks.containsKey(fullName)) {
 				System.out.println("\nStudent \"" + fullName + "\" already exists.");
-                List<Integer> existingMarks = studentMarks.get(fullName);
-                System.out.println("Marks: " + existingMarks);
-                System.out.println("Mean: " + Notes.getAverage(existingMarks));
+				displayStudentInfo(fullName, studentMarks.get(fullName));
 			}
 			
 			// Else, we can add a new student
@@ -58,7 +62,7 @@ public class Students {
 						marksList.add(value);
 						
 					} catch (NumberFormatException err){
-						System.out.println("Invalid Input.");
+						System.out.println("Invalid Input: " + mark);
 					}
 			
 			}
@@ -72,13 +76,24 @@ public class Students {
 			addMoreStudents = choice.equals("y");
 			
 		}
-		// Display 
-		System.out.println("\nStudent records:");
-        for (Map.Entry<String, List<Integer>> entry : studentMarks.entrySet()) {
-        	List<Integer> marks = entry.getValue();
-            System.out.println("Student: " + entry.getKey());
-            System.out.println("Marks: " + entry.getValue());
-            System.out.println("Mean: " + Notes.getAverage(marks)+ "\n");
+		
+		
+		// This is our menu for sorting (or not) the Students with 1 or 2:
+		System.out.println("\nHow would you like to sort the students?");
+        System.out.println("1 - Sort by first name (ascending)");
+        System.out.println("2 - Sort by first name (descending)");
+        System.out.print("Enter your choice (1 or 2): ");
+        String sortChoice = scan.nextLine().trim();
+
+        if (sortChoice.equals("1")) {
+            displaySortedAscending(studentMarks);
+        } else if (sortChoice.equals("2")) {
+            displaySortedDescending(studentMarks);
+        } else {
+            System.out.println("\nInvalid choice. Displaying unsorted records:");
+            for (Map.Entry<String, List<Integer>> entry : studentMarks.entrySet()) {
+                displayStudentInfo(entry.getKey(), entry.getValue());
+            }
         }
         
         scan.close();
