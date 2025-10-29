@@ -4,6 +4,11 @@ import java.util.*;
 
 public class Students {
 	
+	public static String capitalize(String word) {
+		if (word == null || word.isEmpty()) return word;
+		return	word.substring(0,1).toUpperCase() + word.substring(1).toLowerCase();
+	}
+	
 	public static void displayStudentInfo(String name, List<Integer> notes) {
 		System.out.println("Student: " + name);
 	    System.out.println("Marks: " + notes);
@@ -40,7 +45,10 @@ public class Students {
 			String firstName = scan.next();
 			String lastName = scan.next();
 			scan.nextLine();
-	
+			
+			
+			firstName = capitalize(firstName);
+			lastName = capitalize(lastName);
 			String fullName = firstName + " " + lastName;
 			
 			// If the student is already registered
