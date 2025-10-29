@@ -4,6 +4,22 @@ import java.util.*;
 
 public class Students {
 	
+	public static void displaySortedAscending(Map<String, List<Integer>> studentMarks) {
+		System.out.println("\nStudents sorted by first name (ascending): ");
+		studentMarks.entrySet().stream()
+			.sorted(Comparator.comparing(entry -> entry.getKey().split(" ")[0]))
+			.forEach(entry -> {
+	            String name = entry.getKey();
+	            List<Integer> notes = entry.getValue();
+	            System.out.println("Student: " + name);
+	            System.out.println("Marks: " + notes);
+	            System.out.println("Mean: " + Notes.getAverage(notes));
+	            System.out.println("Min: " + Notes.getMinValue(notes));
+	            System.out.println("Max: " + Notes.getMaxValue(notes));
+	            System.out.println();
+	        });
+	}
+	
 	public static void main(String[] args) {
 		
 		Scanner scan = new Scanner(System.in);
@@ -21,6 +37,7 @@ public class Students {
 	
 			String fullName = firstName + " " + lastName;
 			
+			// If the student is already registered
 			if (studentMarks.containsKey(fullName)) {
 				System.out.println("\nStudent \"" + fullName + "\" already exists.");
                 List<Integer> existingMarks = studentMarks.get(fullName);
@@ -28,6 +45,7 @@ public class Students {
                 System.out.println("Mean: " + Notes.getAverage(existingMarks));
 			}
 			
+			// Else, we can add a new student
 			else {
 				System.out.println("Enter the marks (space separated) for " + fullName);
 				String marks = scan.nextLine();
@@ -49,7 +67,7 @@ public class Students {
 				System.out.println("Student \"" + fullName + "\" added successfully.");
 			}
 			
-			System.out.println("Do you want to add another studen? (y or n ) ? ");
+			System.out.println("Do you want to add another student? (y or n ) ? ");
 			String choice = scan.nextLine().trim().toLowerCase();
 			addMoreStudents = choice.equals("y");
 			
