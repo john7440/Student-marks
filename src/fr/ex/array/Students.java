@@ -4,6 +4,46 @@ import java.util.*;
 
 public class Students {
 	
+	public static List<Integer> getValidMarks(Scanner scan, String fullName){
+		List<Integer> marksList = new ArrayList<>();
+		boolean validMarks = false;
+		
+		while (!validMarks) {
+			System.out.println("Enter the marks (space separated) for " + fullName + ":");
+			String marks = scan.nextLine();
+			String[] marksArray = marks.trim().split("\\s+");
+			
+			marksList.clear();
+			boolean allValid = true;
+			
+			for (String mark : marksArray) {
+				try {
+					int value = Integer.parseInt(mark);
+					if (value >=0 && value <= 20) {
+						marksList.add(value);
+					} else {
+						System.out.println("Invalid mark (must be between 0 and 20): " + value);
+	                    allValid = false;
+	                    break;
+					}				
+				} catch (NumberFormatException err) {
+					System.out.println("Invalid input: " + mark);
+	                allValid = false;
+	                break;
+				}
+			}
+			
+			if (allValid && !marksList.isEmpty()) {
+				validMarks = true;
+			} else {
+				System.out.println("Please re enter valid marks for " + fullName);
+			}
+			
+		}
+		return marksList;
+				
+	}
+	
 	public static String capitalize(String word) {
 		if (word == null || word.isEmpty()) return word;
 		return	word.substring(0,1).toUpperCase() + word.substring(1).toLowerCase();
@@ -59,26 +99,7 @@ public class Students {
 			
 			// Else, we can add a new student
 			else {
-				System.out.println("Enter the marks (space separated) for " + fullName);
-				String marks = scan.nextLine();
-				String[] marksArray = marks.split(" ");
-				
-				List<Integer> marksList = new ArrayList<>();
-				for (String mark: marksArray) {
-					try {
-						int value = Integer.parseInt(mark);
-						if (value >= 0 && value <= 20) {
-							marksList.add(value);
-						} else {
-							System.out.println("Invalid mark (must be between 0 and 20): " + value);
-						}
-						
-					} catch (NumberFormatException err){
-						System.out.println("Invalid Input: " + mark);
-					}
-			
-			}
-				
+				List<Integer> marksList = getValidMarks(scan, fullName);
 				studentMarks.put(fullName, marksList);
 				System.out.println("Student \"" + fullName + "\" added successfully.");
 			}

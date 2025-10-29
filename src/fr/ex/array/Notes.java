@@ -6,7 +6,6 @@ public class Notes {
 
 	public static void main(String[] args) {
 		
-		
 	}
 	// A method to find the minimum value in an array
 	public static int getMinValue(List<Integer> numbers) {
